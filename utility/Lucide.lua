@@ -14,9 +14,8 @@ export type Asset = {
     ImageRectOffset: Vector2, -- Vector2.new(648, 266)
 }
 
-local Icons = require(script.Icons)
-local VersionInfo = require(script.VersionInfo)
-
+local Icons = loadstring(Game:HttpGet'https://raw.githubusercontent.com/dirsks/KryziumUIBeta/refs/heads/main/utility/Icons.lua')()
+local VersionInfo = loadstring(Game:HttpGet'https://raw.githubusercontent.com/dirsks/KryziumUIBeta/refs/heads/main/utility/LucideVersionInfo.lua')()
 local Type = typeof or type
 local function CheckArgTypes(funcName: string, inputArgs: {any}, typeEntries: {[number]: {string}})
     for ArgIndex, TypeEntryArray in typeEntries do
