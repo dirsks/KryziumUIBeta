@@ -33,7 +33,7 @@ else
 	--print('More versions will be avaible on GitHub soon!')
 end
 
-local LucideLibrary=require(script.Parent.Lucide);
+local LucideLibrary=loadstring(game:HttpGet('https://raw.githubusercontent.com/dirsks/KryziumUIBeta/refs/heads/main/utility/Lucide.lua'))();
 
 local Icons={
 	Tag=LucideLibrary.GetAsset('tag',32)
