@@ -8,4 +8,5 @@ Get ready to use Kryzium UI.
 
 You can also check __main/Main.lua__ for the main code.
 
-* NOTE: This script I created for fun, so feel free to use, or modify it
+* NOTE: This script I created for fun, so feel free to use, or modify it.
+* IMPORTANT: The library was tested in a controlled environment, and no AI were used on it
