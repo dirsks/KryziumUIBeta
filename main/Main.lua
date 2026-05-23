@@ -34,7 +34,6 @@ else
 end
 
 local LucideLibrary=loadstring(game:HttpGet('https://raw.githubusercontent.com/dirsks/KryziumUIBeta/refs/heads/main/utility/Lucide.lua'))();
-
 local Icons={
 	Tag=LucideLibrary.GetAsset('tag',32)
 };
@@ -137,7 +136,21 @@ local Contexts={
 	Yes=Instance.new'TextButton';
 	TextLabelNotify1=Instance.new'TextLabel';--label
 	TextLabelNotify2=Instance.new'TextLabel';--label
-
+	
+	
+	
+	Slider=Instance.new'Frame';
+	UICornerSlider=Instance.new'UICorner';
+	UIStrokeSlider=Instance.new'UIStroke';
+	Back=Instance.new'Frame';
+	UICornerBack=Instance.new'UICorner';
+	Fill=Instance.new'Frame';
+	UICornerFill=Instance.new'UICorner';
+	Drag=Instance.new'ImageButton';
+	TextButtonSlider=Instance.new'TextButton';
+	TextLabelSlidrr=Instance.new'TextLabel';
+	
+	
 
 	ScrollingContent=Instance.new'ScrollingFrame';
 	ContentFrame=Instance.new'Frame';
@@ -334,7 +347,7 @@ local PropertyInstances={
 		Parent=Contexts['ContentFrame'],
 		FillDirection=Enum.FillDirection.Vertical,
 		CellPadding=UDim2.new(0, 5,0, 20),
-		CellSize=UDim2.new(0.281, 0,0.063, 0)
+		CellSize=UDim2.new(0.281, 0,0.063, 0)--0.281, 0,0.063, 0
 	};
 	Button={-- Button
 		--Parent=Contexts['ContentFrame'],
@@ -372,6 +385,75 @@ local PropertyInstances={
 		TextStrokeTransparency=0.6,
 		Position=UDim2.new(0,0,0,0),
 		Size=UDim2.new(1,0,1,0)
+	};
+	Slider={
+		Parent=InstanceContexts['InstancesInNil'],
+		Name='Slider',
+		BackgroundColor3=Color3.fromRGB(45, 45, 45),
+		BackgroundTransparency=0,
+		Size=UDim2.new(0.966, 0,0.081, 0)
+	};
+	UICornerSlider={
+		Parent=Contexts['Slider'],
+		CornerRadius=UDim.new(0,3)
+	};
+	UIStrokeSlider={
+		Parent=Contexts['Slider'],
+		Transparency=0.5,
+		Thickness=1,
+		ZIndex=2
+	};
+	Back={
+		Parent=Contexts['Slider'],
+		Name='Back',
+		BackgroundColor3=Color3.fromRGB(32, 32, 32),
+		BackgroundTransparency=0,
+		Position=UDim2.new(0.021, 0,0.369, 0),
+		Size=UDim2.new(0, 108,0, 23),
+		ClipsDescendants=true
+	}	;
+	UICornerBack={
+		Parent=Contexts['Back'],
+		CornerRadius=UDim.new(0,3)
+	};
+	Fill={
+		Parent=Contexts['Back'],
+		Name='Fill',
+		BackgroundColor3=Color3.fromRGB(85, 0, 0),
+		BackgroundTransparency=0,
+		Position=UDim2.new(0, 0,0.24, 0),
+		Size=UDim2.new(0,6,0,13)
+	};
+	UICornerFill={
+		Parent=Contexts['Fill'],
+		CornerRadius=UDim.new(0,3)
+	};
+	Drag={
+		Parent=Contexts['Back'],
+		Name='Drag',
+		BackgroundTransparency=1,
+		Position=UDim2.new(0.016, 0,0, 0),
+		Size=UDim2.new(0,16,0,23),
+		Image=''
+	};
+	TextButtonSlider={
+		Parent=Contexts['Slider'],
+		BackgroundTransparency=1,
+		TextTransparency=1,
+		Position=UDim2.new(0,0,0,0),
+		Size=UDim2.new(1,0,1,0)
+	};
+	TextLabelSlidrr={
+		Parent=Contexts['Slider'],
+		BackgroundTransparency=1,
+		Font=Enum.Font.SourceSansBold,
+		RichText=true,
+		TextScaled=true,
+		TextColor3=Color3.fromRGB(255,255,255),
+		Text='Slider',
+		TextStrokeTransparency=0.6,
+		Position=UDim2.new(0.021,0,0,0),
+		Size=UDim2.new(0.979,0,0.386,0)
 	};
 	Keybind={--Keybind Button
 		--Parent=Contexts['ContentFrame'],
@@ -1186,7 +1268,50 @@ function KryziumLib:MakeWindow(SETTINGS)-- KryziumLib:MakeWindow({Image,Name...}
 				function tab:MakeKeybind(SETTINGS1)
 					local btn={}
 					if typeof (SETTINGS1)=='table' then
-						
+						local ScrollingContent=Contexts['ScrollingContent']
+						local Button=Contexts['Keybind']:clone();
+						ScrollingContent.Parent=InstanceContexts['__ContentFrame']
+						Button.Parent=Contexts['ContentFrame'];
+						--Button:WaitForChild('TextLabel').Text=SETTINGS1.Title
+						--Button:WaitForChild'TextButton'.MouseButton1Click:connect(function()
+						--	AudioSFX.ToggleSound:Play();
+						--	SETTINGS1.Callback()
+						--end)
+					end
+					return btn
+				end
+				function tab:MakeSlider(SETTINGS1)
+					local btn={};
+					if typeof(SETTINGS1)=='table'then
+						local ScrollingContent=Contexts['ScrollingContent']
+						local Button=Contexts['Slider']:clone();
+						local S=function(_,x)return Game:GetService(x)end;
+						local UIS=Model[7];
+						local Player=S(Game,'Players').LocalPlayer;
+						local Mouse=Player:GetMouse();
+						local Slider=Button;
+						local Back=Slider:WaitForChild'Back';
+						local Fill=Back:WaitForChild('Fill');
+						local Drag=Back:WaitForChild'Drag';
+						local Holding=false;
+						local Max=Back.AbsoluteSize.X;
+						local Value=SETTINGS1.Value or 0;
+						local MinValue=SETTINGS1.MinValue or 0;
+						local MaxValue=SETTINGS1.MaxValue or 100;
+						Drag.MouseButton1Down:Connect(function()Holding=true;end)
+						UIS.InputEnded:Connect(function(Input)if Input.UserInputType==Enum.UserInputType.MouseButton1 then Holding=false;end;end)
+						UIS.InputChanged:Connect(function(Input)
+							if Holding and Input.UserInputType==Enum.UserInputType.MouseMovement then
+								local X=math.clamp(Mouse.X-Back.AbsolutePosition.X,0,Max);
+								Fill.Size=UDim2.new(0,X,0,13);
+								Drag.Position=UDim2.new(0,X-(Drag.AbsoluteSize.X/2),0.5,-(Drag.AbsoluteSize.Y/2));
+								Value=math.floor(MinValue+((X/Max)*(MaxValue-MinValue)));
+								SETTINGS1.Callback(Value)
+							end
+						end)
+						ScrollingContent.Parent=InstanceContexts['__ContentFrame']
+						Button.Parent=Contexts['ContentFrame'];
+						Button:WaitForChild('TextLabel').Text=SETTINGS1.Title
 					end
 					return btn
 				end
