@@ -1,5 +1,3 @@
--- Contains the source
-
 --[[
 	Still on beta
 	
@@ -34,8 +32,10 @@ else
 end
 
 local LucideLibrary=loadstring(game:HttpGet('https://raw.githubusercontent.com/dirsks/KryziumUIBeta/refs/heads/main/utility/Lucide.lua'))();
+
 local Icons={
-	Tag=LucideLibrary.GetAsset('tag',32)
+	Tag=LucideLibrary.GetAsset('tag',32),
+	Farm=LucideLibrary.GetAsset('magnet',32)
 };
 
 local Avaible='Kryzium UI'
@@ -78,12 +78,14 @@ local InstanceContexts={
 	UIAspectRatioConstraint=Instance.new'UIAspectRatioConstraint';--End of toggle
 	__Main1=Instance.new'Frame';
 	--UIDragDetector1=Instance.new'UIDragDetector';
+	textttttttttttttttttttttttttext=Instance.new'TextLabel';
 	__Title=Instance.new'Frame';
 	UICorner=Instance.new'UICorner';
 	UICornerrr=Instance.new'UICorner';
 	TitleText=Instance.new'TextLabel';-- This
 	CornerCover=Instance.new'Frame';
 	__TabFrame=Instance.new'Frame';
+	TextButton127=Instance.new'TextButton';
 	UICorner1=Instance.new'UICorner';
 	UICorner2=Instance.new'UICorner';
 	CornerCover2=Instance.new'Frame';
@@ -112,12 +114,16 @@ local InstanceContexts={
 	Loading=Instance.new'TextLabel';
 	Madeby=Instance.new'TextLabel';
 	Version=Instance.new'TextLabel';
+	
+	NoContentLabel=Instance.new'TextLabel';
 };
 --The property of all contexts in InstanceContexts. TO parent something, you should do: Parent=InstanceContexts['OBJECT_NAME']
 --Those top-listed-objects are not created automatically. They're used later on creating elements like: notifications, tabs...
 local Contexts={
 	TabMenu=Instance.new'Frame'; --Tab Container
 	Frame=Instance.new'Frame';
+	ACtive=Instance.new'Frame';
+	ActiveCorner=Instance.new'UICorner';
 	UICorner2Tab=Instance.new'UICorner';
 	TextLabeltab=Instance.new'TextLabel';
 	TextButtontabb=Instance.new'TextButton';
@@ -136,9 +142,7 @@ local Contexts={
 	Yes=Instance.new'TextButton';
 	TextLabelNotify1=Instance.new'TextLabel';--label
 	TextLabelNotify2=Instance.new'TextLabel';--label
-	
-	
-	
+
 	Slider=Instance.new'Frame';
 	UICornerSlider=Instance.new'UICorner';
 	UIStrokeSlider=Instance.new'UIStroke';
@@ -149,8 +153,25 @@ local Contexts={
 	Drag=Instance.new'ImageButton';
 	TextButtonSlider=Instance.new'TextButton';
 	TextLabelSlidrr=Instance.new'TextLabel';
-	
-	
+
+
+
+	Warning=Instance.new'Frame';
+	CornerWarn=Instance.new'UICorner';
+	StrokeWarn=Instance.new'UIStroke';
+	WarnBtn=Instance.new'TextButton';
+	TitleWarn=Instance.new'TextLabel';
+	DescWarn=Instance.new'TextLabel';
+
+	ColourPicker=Instance.new'Frame';
+	Cornerpick=Instance.new'UICorner';
+	Strokepick=Instance.new'UIStroke';
+	ColorFrame=Instance.new'Frame'	 ;
+	CornerFolor=Instance.new'UICorner';
+	frameFramesFramesFRAMES=Instance.new'Frame';
+	Sax=Instance.new'TextBox';
+	ImageLabels8s=Instance.new'ImageLabel';
+	InteractBax=Instance.new'TextButton';
 
 	ScrollingContent=Instance.new'ScrollingFrame';
 	ContentFrame=Instance.new'Frame';
@@ -302,7 +323,6 @@ local PropertyInstances={
 	Madeby={
 		Parent=InstanceContexts['Container'],
 		Name='Made by dircs',
-		Text='Made by',
 		ZIndex=1002,
 		Font=Enum.Font.SourceSansBold,
 		BackgroundTransparency=1,
@@ -347,14 +367,14 @@ local PropertyInstances={
 		Parent=Contexts['ContentFrame'],
 		FillDirection=Enum.FillDirection.Vertical,
 		CellPadding=UDim2.new(0, 5,0, 20),
-		CellSize=UDim2.new(0.281, 0,0.063, 0)--0.281, 0,0.063, 0
+		CellSize=UDim2.new(0.719, 0,0.081, 0)--0.281, 0,0.063, 0
 	};
 	Button={-- Button
 		--Parent=Contexts['ContentFrame'],
 		Parent=InstanceContexts['InstancesInNil'],
 		Name='Button',
+		BackgroundColor3=Color3.fromRGB(45, 32, 32),
 		BorderSizePixel=0,
-		BackgroundColor3=Color3.fromRGB(45, 45, 45),
 		Size=UDim2.new(0.281, 0,0.063, 0)
 	};--enf
 	ButtonCorner={
@@ -363,8 +383,9 @@ local PropertyInstances={
 	};
 	StrokeButton={
 		Parent=Contexts['Button'],
+		Color=Color3.fromRGB(90, 64, 64),
 		Transparency=0.5,
-		Thickness=1,
+		Thickness=2,
 		ZIndex=2
 	};
 	ButtonButton={
@@ -383,13 +404,13 @@ local PropertyInstances={
 		BackgroundTransparency=1,
 		TextColor3=Color3.fromRGB(255, 255, 255),
 		TextStrokeTransparency=0.6,
-		Position=UDim2.new(0,0,0,0),
-		Size=UDim2.new(1,0,1,0)
+		Position=UDim2.new(0.021,0,0,0),
+		Size=UDim2.new(0.979, 0,1, 0)
 	};
 	Slider={
 		Parent=InstanceContexts['InstancesInNil'],
 		Name='Slider',
-		BackgroundColor3=Color3.fromRGB(45, 45, 45),
+		BackgroundColor3=Color3.fromRGB(45, 32, 32),
 		BackgroundTransparency=0,
 		Size=UDim2.new(0.966, 0,0.081, 0)
 	};
@@ -399,17 +420,18 @@ local PropertyInstances={
 	};
 	UIStrokeSlider={
 		Parent=Contexts['Slider'],
+		Color=Color3.fromRGB(90, 64, 64),
 		Transparency=0.5,
-		Thickness=1,
+		Thickness=2,
 		ZIndex=2
 	};
 	Back={
 		Parent=Contexts['Slider'],
 		Name='Back',
-		BackgroundColor3=Color3.fromRGB(32, 32, 32),
+		BackgroundColor3=Color3.fromRGB(30, 21, 21),
 		BackgroundTransparency=0,
 		Position=UDim2.new(0.021, 0,0.369, 0),
-		Size=UDim2.new(0, 108,0, 23),
+		Size=UDim2.new(0, 277,0, 23),
 		ClipsDescendants=true
 	}	;
 	UICornerBack={
@@ -455,13 +477,148 @@ local PropertyInstances={
 		Position=UDim2.new(0.021,0,0,0),
 		Size=UDim2.new(0.979,0,0.386,0)
 	};
+	--ColorPicker contaner Start
+	ColourPicker={
+		Parent=InstanceContexts['InstancesInNil'],
+		Name='ColourPicker',
+		BackgroundColor3=Color3.fromRGB(45, 32, 32),
+		BorderSizePixel=0,
+		Size=UDim2.new(0.719, 0,0.081, 0)
+	};
+	textttttttttttttttttttttttttext={
+		Parent=Contexts['ColourPicker'],
+		BackgroundTransparency=1,
+		Size=UDim2.new(0.522,0,1,0),
+		TextStrokeTransparency=0.6,
+		Font=Enum.Font.SourceSansBold,
+		TextColor3=Color3.fromRGB(255,255,255),
+		Text='Colour Picker',
+		TextScaled=true,
+		RichText=true
+	};
+	Cornerpick={
+		Parent=Contexts['ColourPicker'],
+		CornerRadius=UDim.new(0,3)
+	};
+	Strokepick={
+		Parent=Contexts['ColourPicker'],
+		Color=Color3.fromRGB(90, 64, 64),
+		Transparency=0.5,
+		Thickness=2,
+		ZIndex=2
+	};
+	ColorFrame={
+		Parent=Contexts['ColourPicker'],
+		Name='ColorFrame',
+		BackgroundColor3=Color3.fromRGB(6, 174, 189),
+		BorderSizePixel=0,
+		Position=UDim2.new(0.593, 0,0.079, 0),
+		Size=UDim2.new(0.389, 0,0.816, 0)
+	};
+	CornerFolor={
+		Parent=Contexts['ColorFrame'],
+		CornerRadius=UDim.new(0,3),
+	};
+	frameFramesFramesFRAMES={
+		Parent=Contexts['ColorFrame'],
+		Visible=false,
+		BackgroundColor3=Color3.fromRGB(20, 20, 20),
+		Position=UDim2.new(1.114, 0,-0.101, 0),
+		Size=UDim2.new(0, 100,0, 117)
+	};
+	Sax={
+		Parent=Contexts['frameFramesFramesFRAMES'],
+		Name='Color3InputBox',
+		BackgroundColor3=Color3.fromRGB(50, 50, 50),
+		BackgroundTransparency=0,
+		TextColor3=Color3.fromRGB(255,255,255),
+		Font=Enum.Font.SourceSans,
+		Text='',
+		PlaceholderText='Color3',
+		Position=UDim2.new(0, 0,0.855, 0),
+		Size=UDim2.new(0, 100,0, 17)
+	};
+	ImageLabels8s={
+		Parent=Contexts['frameFramesFramesFRAMES'],
+		BackgroundTransparency=1,
+		Image='rbxassetid://1003599877',
+		Size=UDim2.new(0, 100,0, 100)
+	};
+	TextButton127={
+		Parent=Contexts['ImageLabels8s'],
+		Name='InteractBox',
+		BackgroundTransparency=1,
+		Size=UDim2.new(1,0,1,0),
+		TextTransparency=1
+	};
+	InteractBax={
+		Parent=Contexts['ColorFrame'],
+		BackgroundTransparency=1,
+		TextTransparency=1,
+		Size=UDim2.new(1,0,1,0)
+	},
+	--COlorPicker container end
+	--Warning Container start
+	Warning={
+		Parent=InstanceContexts['InstancesInNil'],
+		Name='Warning',
+		BackgroundColor3=Color3.fromRGB(76, 67, 22),
+		BorderSizePixel=0,
+		Size=UDim2.new(0.719, 0,0.081, 0)
+	};
+	CornerWarn={
+		Parent=Contexts['Warning'],
+		CornerRadius=UDim.new(0,3)
+	};
+	StrokeWarn={
+		Parent=Contexts['Warning'],
+		Color=Color3.fromRGB(202, 178, 59),
+		Transparency=0.5,
+		Thickness=2,
+		ZIndex=2
+	};
+	WarnBtn={
+		Parent=Contexts['Warning'],
+		BackgroundTransparency=1,
+		TextTransparency=1,
+		Position=UDim2.new(0,0,0,0),
+		Size=UDim2.new(1,0,1,0)
+	};
+	TitleWarn={
+		Parent=Contexts['Warning'],
+		BackgroundTransparency=1,
+		Name='TitleWarn',
+		TextScaled=true,
+		RichText=true,
+		Font=Enum.Font.SourceSansBold,
+		Text='Placeholder',
+		Position=UDim2.new(0,0,0,0),
+		Size=UDim2.new(1,0,0.288,0),
+		TextColor3=Color3.fromRGB(255,255,255),
+		TextStrokeTransparency=0.6
+	};
+	DescWarn={
+		Parent=Contexts['Warning'],
+		BackgroundTransparency=1,
+		Name='DescWarn',
+		TextScaled=true,
+		RichText=true,
+		Font=Enum.Font.SourceSansBold,
+		Text='Placeholder',
+		Position=UDim2.new(0, 0,0.288, 0),
+		Size=UDim2.new(1,0,0.712,0),
+		TextColor3=Color3.fromRGB(255,255,255),
+		TextStrokeTransparency=0.6
+	};
+	--Warning container ends
 	Keybind={--Keybind Button
 		--Parent=Contexts['ContentFrame'],
 		Parent=InstanceContexts['InstancesInNil'],
 		Name='Keybind',
 		BorderSizePixel=0,
-		BackgroundColor3=Color3.fromRGB(45, 45, 45),
-		Size=UDim2.new(0.281, 0,0.063, 0),
+		BackgroundColor3=Color3.fromRGB(45, 32, 32),
+		Position=UDim2.new(0.593,0,0.079,0),
+		Size=UDim2.new(0.389, 0,0.816, 0),
 	};
 	CornerKeybind={
 		Parent=Contexts['Keybind'],
@@ -469,15 +626,16 @@ local PropertyInstances={
 	};
 	StrokeKeybind={
 		Parent=Contexts['Keybind'],
+		Color=Color3.fromRGB(90, 64, 64),
 		Transparency=0.5,
-		Thickness=1,
+		Thickness=2,
 		ZIndex=2
 	};
 	ToggleFrame={
 		Parent=Contexts['Keybind'],
 		BorderSizePixel=0,
 		Name='ToggleFrame',
-		BackgroundColor3=Color3.fromRGB(32, 32, 32),
+		BackgroundColor3=Color3.fromRGB(30, 21, 21),
 		Position=UDim2.new(0.593, 0,0.079, 0),
 		Size=UDim2.new(0.389, 0,0.816, 0)
 	};
@@ -510,8 +668,8 @@ local PropertyInstances={
 		Visible=false,
 		BackgroundColor3=Color3.fromRGB(40, 40, 40),
 		BackgroundTransparency=0,
-		Position=UDim2.new(0.451, 0,1.026, 0),
-		Size=UDim2.new(0.646, 0,0.474, 0)
+		Position=UDim2.new(0.744, 0,1.026, 0),
+		Size=UDim2.new(0.071, 0,0.236, 0)
 	};
 	infoCorner={
 		Parent=Contexts['info'],
@@ -543,7 +701,7 @@ local PropertyInstances={
 		--Parent=Contexts['ContentFrame'],
 		Parent=InstanceContexts['InstancesInNil'],
 		Name='Toggle',
-		BackgroundColor3=Color3.fromRGB(45, 45, 45),
+		BackgroundColor3=Color3.fromRGB(45, 32, 32),
 		BackgroundTransparency=0,
 		Size=UDim2.new(0.281, 0,0.063, 0)
 	};
@@ -553,15 +711,16 @@ local PropertyInstances={
 	};
 	StrokeToggle={
 		Parent=Contexts['Togel'],
+		Color=Color3.fromRGB(90, 64, 64),
 		Transparency=0.5,
-		Thickness=1,
+		Thickness=2,
 		ZIndex=2
 	};
 	TaggleFrame={
 		Parent=Contexts['Togel'],
 		BackgroundTransparency=0,
 		BorderSizePixel=0,
-		BackgroundColor3=Color3.fromRGB(32,32,32),
+		BackgroundColor3=Color3.fromRGB(30, 21, 21),
 		Position=UDim2.new(0.593, 0,0.079, 0),
 		Size=UDim2.new(0.389, 0,0.816, 0)
 	};
@@ -605,11 +764,13 @@ local PropertyInstances={
 	--microwave
 	ScreenGui={
 		Name='Main',
-		IgnoreGuiInset=true
+		IgnoreGuiInset=true,
+		ResetOnSpawn=false
 	};
 	ScreenGui2={
 		Name='DNotification',
-		IgnoreGuiInset=true
+		IgnoreGuiInset=true,
+		ResetOnSpawn=false
 	};
 	--Tabs container
 	TabMenu={
@@ -626,6 +787,27 @@ local PropertyInstances={
 		ImageRectOffset=Icons['Tag'].ImageRectOffset,
 		Position=UDim2.new(0.087, 0,0.103, 0),
 		Size=UDim2.new(0.25, 0,0.759, 0)
+	};
+	NoContentLabel={
+		Parent=InstanceContexts['InstancesInNil'],
+		Name='NoContentLabel',
+		BackgroundTransparency=1,
+		Font=Enum.Font.SourceSansBold,
+		Text='There is no content yet!',
+		TextScaled=true,
+		TextTransparency=0.9,
+		Position=UDim2.new(0.052,0,0.307,0),
+		Size=UDim2.new(0,360,0,75)
+	};
+	ACtive={
+		Parent=Contexts['Frame'],
+		BackgroundColor3=Color3.fromRGB(85,0,0),
+		BackgroundTransparency=1,
+		Position=UDim2.new(0,0,0.069,0),
+		Size=UDim2.new(0,7,0,25)
+	};
+	ActiveCorner={
+		Parent=Contexts['ACtive']
 	};
 	TaggelLabel={
 		Parent=Contexts['Togel'],
@@ -921,7 +1103,7 @@ local PropertyInstances={
 		ZIndex=5,
 		Image='rbxassetid://72369033405617',
 		ImageColor3=Color3.fromRGB(85, 0, 127),
-		ImageTransparency=0.96,
+		ImageTransparency=0.9,
 		BackgroundTransparency=1,
 		Position=UDim2.new(0.589, 0,0.383, 0),
 		Size=UDim2.new(0, 513,0, 435)
@@ -1141,9 +1323,9 @@ local DragToggle=function()
 			MousePos=Input.Position;
 			FramePos=InstanceContexts['Toggle'].Position;
 			Input.Changed:Connect(function()
-			if Input.UserInputState==Enum.UserInputState.End then
-			Drag=false
-			end
+				if Input.UserInputState==Enum.UserInputState.End then
+					Drag=false
+				end
 			end)
 		end
 	end)
@@ -1156,6 +1338,7 @@ local DragToggle=function()
 end
 function KryziumLib:MakeWindow(SETTINGS)-- KryziumLib:MakeWindow({Image,Name...})
 	local Window={}
+	local SK={}
 	local num=0
 	if typeof(SETTINGS)=='table'then-- This needs a table. If you put, for example: Darkz:MakeWindow('make this window'), or something else, it wont work.
 		InstanceContexts.Main.Parent=InstanceContexts.ScreenGui;
@@ -1174,6 +1357,7 @@ function KryziumLib:MakeWindow(SETTINGS)-- KryziumLib:MakeWindow({Image,Name...}
 		if SETTINGS.Name then
 			InstanceContexts['TitleText'].Text='      '..SETTINGS.Name
 			Avaible=SETTINGS.Name
+			InstanceContexts['Madeby'].Text='Made by '..SETTINGS.Author
 		else
 			InstanceContexts['TitleText'].Text='      Kryzium UI'
 			Avaible='Kryzium UI'
@@ -1193,24 +1377,101 @@ function KryziumLib:MakeWindow(SETTINGS)-- KryziumLib:MakeWindow({Image,Name...}
 				if Tabtab.Name~='TabMenu'then warn('Something went wrong when creating a tab. Error: 0xC0001004')end
 				num=num+1;
 				local Tabss=Tabtab:Clone();
+				local TabScorl=Contexts['ScrollingContent']:clone()
+				TabScorl.Name=TabScorl.Name..num
+				TabScorl.Parent=InstanceContexts['__ContentFrame']
+				SK[TabScorl]=true
 				Tabss.Parent=InstanceContexts['Scroll']
 				Tabss.Name=Tabss.Name..num
+				local function Hide(Tab)
+					for _,v in pairs(Tab:GetDescendants())do
+						if not v:GetAttribute'_Saved'then
+							v:SetAttribute('_Saved',true)
+							if v:IsA'GuiObject'then v:SetAttribute('BT',v.BackgroundTransparency);end
+							if v:IsA'TextLabel'or v:IsA'TextButton'or v:IsA'TextBox'then v:SetAttribute('TT',v.TextTransparency);v:SetAttribute('TST',v.TextStrokeTransparency);end
+							if v:IsA'ImageLabel'or v:IsA'ImageButton'then v:SetAttribute('IT',v.ImageTransparency);end
+						end
+						local C={}
+						if v:IsA'GuiObject'then C.BackgroundTransparency=1;end
+						if v:IsA'TextLabel'or v:IsA'TextButton'or v:IsA'TextBox'then C.TextTransparency=1;C.TextStrokeTransparency=1;end
+						if v:IsA'ImageLabel'or v:IsA'ImageButton'then C.ImageTransparency=1;end
+						if next(C)then Model[5]:Create(v,TweenInfo.new(.25),C):Play();end
+					end
+				end;
+				local function Show(Tab)
+					Tab.Visible=true;
+					for _,v in pairs(Tab:GetDescendants())do
+						local C={}
+						if v:IsA'GuiObject'then C.BackgroundTransparency=v:GetAttribute'BT'or 0 end
+						if v:IsA'TextLabel'or v:IsA'TextButton'or v:IsA'TextBox'then C.TextTransparency=v:GetAttribute'TT'or 0 C.TextStrokeTransparency=v:GetAttribute'TST'or 1 end
+						if v:IsA'ImageLabel'or v:IsA'ImageButton'then C.ImageTransparency=v:GetAttribute'IT'or 0 end
+						if next(C)then Model[5]:Create(v,TweenInfo.new(.25),C):Play() end
+					end
+				end;
 				if SETTINGS1.Image then
 					local Img=Tabss:FindFirstChild('Frame'):FindFirstChild('ImageLabel');
 					if Img then
-						if typeof(Img)=='number' then
-							Img.Image='rbxassetid://'..SETTINGS1.Image;elseif typeof(Img)=='string' then Img.Image=SETTINGS1.Image;end
+						if typeof(SETTINGS1.Image)=='number'then
+							Img.Image='rbxassetid://'..SETTINGS1.Image
+						else
+							
+							Img.Image=SETTINGS1.Image
+							
+						end
+						if SETTINGS1.Image=='Default' then
+							Img.Image=Icons['Tag'].Url
+							Img.ImageRectSize=Icons['Tag'].ImageRectSize
+							Img.ImageRectOffset=Icons['Tag'].ImageRectOffset
+						end
 					end
 				end
-				Tabss.Frame:WaitForChild('TextLabel').Text=SETTINGS1.Title or 'Tab '..num
+				Tabss.Frame:WaitForChild'TextLabel'.Text=SETTINGS1.Title or'Tab '..num
+				if num==1 then
+					TabScorl.Visible=true;
+					Tabss.Frame.Frame.BackgroundTransparency=0;
+				else
+					TabScorl.Visible=false;
+					Hide(TabScorl)
+					Tabss.Frame.Frame.BackgroundTransparency=1;
+				end;
+
+				Tabss.Frame.TextButton.MouseButton1Click:Connect(function()
+
+					for Frame,_ in pairs(SK)do
+						Frame.Visible=false;
+						Frame.CanvasPosition=Vector2.new(0,0)
+						Hide(Frame);
+					end;
+
+					Show(TabScorl);
+
+					for _,d in pairs(InstanceContexts.Scroll:GetChildren())do
+						if d:IsA'Frame'then
+							Model[5]:Create(
+								d.Frame.Frame,
+								TweenInfo.new(.25),
+								{BackgroundTransparency=1}
+							):Play()
+						end
+					end;
+
+					Model[5]:Create(
+						Tabss.Frame.Frame,
+						TweenInfo.new(.25),
+						{BackgroundTransparency=0}
+					):Play()
+
+					Show(TabScorl)
+
+				end)
+				
 				--Contexts['ScrollingFrameeeeeeeeeeeeee'].Parent=InstanceContexts['__ContentFrame']
 				function tab:MakeButton(SETTINGS1)
 					local btn={}
 					if typeof (SETTINGS1)=='table'then
 						local ScrollingContent=Contexts['ScrollingContent']
 						local Button=Contexts['Button']:clone();
-						ScrollingContent.Parent=InstanceContexts['__ContentFrame']
-						Button.Parent=Contexts['ContentFrame'];
+						Button.Parent=TabScorl.Content;
 						Button:WaitForChild('TextLabel').Text=SETTINGS1.Title
 						Button:WaitForChild'TextButton'.MouseButton1Click:connect(function()
 							AudioSFX.ToggleSound:Play();
@@ -1222,12 +1483,11 @@ function KryziumLib:MakeWindow(SETTINGS)-- KryziumLib:MakeWindow({Image,Name...}
 				function tab:MakeToggle(SETTINGS1)
 					local btn={}
 					if typeof (SETTINGS1)=='table'then
-						local ScrollingContent=Contexts['ScrollingContent']
+						local ScrollingContent=tab
 						local TWI=TweenInfo.new(0.095,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut)
 						local Toggle=Contexts['Togel']:clone();
 						local Piza=SETTINGS1.Toggle;
-						ScrollingContent.Parent=InstanceContexts['__ContentFrame']
-						Toggle.Parent=Contexts['ContentFrame'];
+						Toggle.Parent=TabScorl.Content;
 						local off={
 							Position=UDim2.new(0.476, 0,0.047, 0),
 							BackgroundColor3=Color3.fromRGB(85, 0, 0)
@@ -1272,8 +1532,7 @@ function KryziumLib:MakeWindow(SETTINGS)-- KryziumLib:MakeWindow({Image,Name...}
 						local ScrollingContent=Contexts['ScrollingContent'];
 						local Button=Contexts['Keybind']:Clone();
 						local Connection;
-						ScrollingContent.Parent=InstanceContexts['__ContentFrame'];
-						Button.Parent=Contexts['ContentFrame'];
+						Button.Parent=TabScorl.Content;
 						local o={
 							Position=UDim2.new(0.451,0,1.026,0),
 							Size=UDim2.new(0.646,0,0.474,0)
@@ -1300,7 +1559,7 @@ function KryziumLib:MakeWindow(SETTINGS)-- KryziumLib:MakeWindow({Image,Name...}
 							AudioSFX.ToggleSound:Play();
 							Button.ToggleFrame.TextLabel.Text='...';
 							if Connection then
-							Connection:Disconnect();
+								Connection:Disconnect();
 							end
 							Connection=Model[7].InputBegan:Connect(function(inpt,gmpce)
 								if gmpce then return end
@@ -1354,10 +1613,79 @@ function KryziumLib:MakeWindow(SETTINGS)-- KryziumLib:MakeWindow({Image,Name...}
 								SETTINGS1.Callback(Value)
 							end
 						end)
-						ScrollingContent.Parent=InstanceContexts['__ContentFrame']
-						Button.Parent=Contexts['ContentFrame'];
+						Button.Parent=TabScorl.Content;
 						Button:WaitForChild('TextLabel').Text=SETTINGS1.Title
 					end
+					return btn
+				end
+				function tab:MakeWarning(SETTINGS1)
+					local btn={}
+					if typeof (SETTINGS1)=='table'then
+						local ScrollingContent=Contexts['ScrollingContent']
+						local Button=Contexts['Warning']:clone();
+						Button.Parent=TabScorl.Content;
+						Button:WaitForChild('TitleWarn').Text=SETTINGS1.Title or 'Placeholder'
+						Button:WaitForChild'DescWarn'.Text=SETTINGS1.Container or 'Placeholder'
+					end
+					return btn
+				end
+				function tab:MakeColourPicker(SETTINGS1)
+					local btn={}
+					if typeof(SETTINGS1)~='table' then return btn end
+					local Button=Contexts['ColourPicker']:Clone();
+					local UIS=Game:GetService'UserInputService';
+					Button.Parent=TabScorl.Content;
+					Button.TextLabel.Text=SETTINGS1.Title or 'Colour Picker';
+					local Wheel=Button.ColorFrame.Frame.ImageLabel;
+					local Preview=Button.ColorFrame;
+					local Hitbox=Button.ColorFrame:WaitForChild'TextButton';
+					local Cursor=Wheel:WaitForChild'InteractBox';
+					local Drag=false;
+					local H,S,V=0,1,1;
+					local function Update()
+						local Color=Color3.fromHSV(H,S,V);
+						Preview.BackgroundColor3=Color;
+						if SETTINGS1.Callback then
+							SETTINGS1.Callback(Color);
+						end
+					end;
+					Hitbox.InputBegan:Connect(function(Input)
+						if Input.UserInputType==Enum.UserInputType.MouseButton1 then
+							Drag=true;
+						end
+					end);
+					UIS.InputEnded:Connect(function(Input)
+						if Input.UserInputType==Enum.UserInputType.MouseButton1 then
+							Drag=false;
+						end
+					end);
+					UIS.InputChanged:Connect(function(Input)
+						if not Drag then return end;
+						if Input.UserInputType~=Enum.UserInputType.MouseMovement then return end;
+						local Mouse=UIS:GetMouseLocation();
+						local Center=Vector2.new(
+							Wheel.AbsolutePosition.X+Wheel.AbsoluteSize.X/2,
+							Wheel.AbsolutePosition.Y+Wheel.AbsoluteSize.Y/2
+						);
+						local Offset=Mouse-Center;
+						local Radius=Wheel.AbsoluteSize.X/2;
+						if Offset.Magnitude>Radius then
+							Offset=Offset.Unit*Radius;
+						end;
+						local Distance=math.clamp(
+							Offset.Magnitude/Radius,
+							0,
+							1
+						);
+						local Angle=math.atan2(Offset.Y,Offset.X);H=((Angle/(math.pi*2))+0.5)%1;
+						S=Distance;
+						Cursor.Position=UDim2.fromOffset(
+							Offset.X+Radius-Cursor.AbsoluteSize.X/2,
+							Offset.Y+Radius-Cursor.AbsoluteSize.Y/2
+						);
+						Update();
+					end);
+					Update();
 					return btn
 				end
 			end
@@ -1466,8 +1794,8 @@ function KryziumLib:init(SETTINGS)
 		--	InstanceContexts['Loading'].Text='Library Loading'
 		--end
 		--if SETTINGS.Gradient and SETTINGS.GradientColor then
-			InstanceContexts['UIGradient'].Enabled=true;
-			InstanceContexts['UIGradient'].Color=SETTINGS.GradientColor
+		InstanceContexts['UIGradient'].Enabled=true;
+		InstanceContexts['UIGradient'].Color=SETTINGS.GradientColor
 		--end
 		if SETTINGS.GradientRotation then
 			InstanceContexts['UIGradient'].Rotation=tonumber(SETTINGS.GradientRotation) or 0
