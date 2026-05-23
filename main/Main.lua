@@ -1199,7 +1199,7 @@ function KryziumLib:MakeWindow(SETTINGS)-- KryziumLib:MakeWindow({Image,Name...}
 					local Img=Tabss:FindFirstChild('Frame'):FindFirstChild('ImageLabel');
 					if Img then
 						if typeof(Img)=='number' then
-						Img.Image='rbxassetid://'..SETTINGS1.Image;elseif typeof(Img)=='string' then Img.Image=SETTINGS1.Image;end
+							Img.Image='rbxassetid://'..SETTINGS1.Image;elseif typeof(Img)=='string' then Img.Image=SETTINGS1.Image;end
 					end
 				end
 				Tabss.Frame:WaitForChild('TextLabel').Text=SETTINGS1.Title or 'Tab '..num
@@ -1267,16 +1267,61 @@ function KryziumLib:MakeWindow(SETTINGS)-- KryziumLib:MakeWindow({Image,Name...}
 				end
 				function tab:MakeKeybind(SETTINGS1)
 					local btn={}
-					if typeof (SETTINGS1)=='table' then
-						local ScrollingContent=Contexts['ScrollingContent']
-						local Button=Contexts['Keybind']:clone();
-						ScrollingContent.Parent=InstanceContexts['__ContentFrame']
+					if typeof(SETTINGS1)=='table' then
+						if not SETTINGS1.Keybind then return end
+						local ScrollingContent=Contexts['ScrollingContent'];
+						local Button=Contexts['Keybind']:Clone();
+						local Connection;
+						ScrollingContent.Parent=InstanceContexts['__ContentFrame'];
 						Button.Parent=Contexts['ContentFrame'];
-						--Button:WaitForChild('TextLabel').Text=SETTINGS1.Title
-						--Button:WaitForChild'TextButton'.MouseButton1Click:connect(function()
-						--	AudioSFX.ToggleSound:Play();
-						--	SETTINGS1.Callback()
-						--end)
+						local o={
+							Position=UDim2.new(0.451,0,1.026,0),
+							Size=UDim2.new(0.646,0,0.474,0)
+						};
+						local g={
+							Position=UDim2.new(0.744,0,1.026,0),
+							Size=UDim2.new(0.071,0,0.236,0)
+						};
+						local InputWarn=function()
+							local Anim1=Model[5]:Create(Button.info,TweenInfo.new(.5,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),o);
+							local Anim2=Model[5]:Create(Button.info,TweenInfo.new(.5,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),g);
+							Button.info.Visible=true;
+							Anim1:Play();
+							Anim1.Completed:Connect(function()
+								wait(2.4);
+								Anim2:Play();
+							end);
+							Anim2.Completed:Connect(function()
+								Button.info.Visible=false;
+							end);
+						end;
+						Button.TextLabel.Text=SETTINGS1.Title or 'Keybind';
+						Button.ToggleFrame.InteractBox.MouseButton1Click:Connect(function()
+							AudioSFX.ToggleSound:Play();
+							Button.ToggleFrame.TextLabel.Text='...';
+							if Connection then
+							Connection:Disconnect();
+							end
+							Connection=Model[7].InputBegan:Connect(function(inpt,gmpce)
+								if gmpce then return end
+								if inpt.KeyCode==Enum.KeyCode.Unknown then
+									InputWarn();
+									return;
+								end
+								Button.ToggleFrame.TextLabel.Text=inpt.KeyCode.Name;
+								SETTINGS1.Keybind=inpt.KeyCode
+								Connection:Disconnect();
+								Connection=nil;
+							end)
+						end)
+						Model[7].InputBegan:Connect(function(inpt,gmpce)
+							if gmpce then return end
+							if inpt.KeyCode==SETTINGS1.Keybind then
+								if SETTINGS1.Callback then
+									SETTINGS1.Callback(inpt.KeyCode)
+								end
+							end
+						end)
 					end
 					return btn
 				end
