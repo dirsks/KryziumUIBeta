@@ -11,7 +11,7 @@ if not Game:IsLoaded() then
 end
 
 --HINT: 1: Workspace; 2: CoreGui; 3: Debris, 4: Players
-local Model={[1]=Game:GetService'Workspace',[2]=Game:GetService'StarterGui',[3]=Game:GetService'Debris',[4]=Game:GetService'Players',[5]=Game:GetService'TweenService',[6]=Game:GetService('HttpService'),[7]=Game:GetService'UserInputService'};
+local Model={[1]=Game:GetService'Workspace',[2]=Game:GetService'CoreGui',[3]=Game:GetService'Debris',[4]=Game:GetService'Players',[5]=Game:GetService'TweenService',[6]=Game:GetService('HttpService'),[7]=Game:GetService'UserInputService'};
 --local Enemies=Model[1]['Enemies'];
 --local NPCS=Model[1]['NPCs']
 
@@ -48,7 +48,7 @@ local AudioSFX={
 };
 local Audios={
 	Index={
-		Parent=Model[4].LocalPlayer.PlayerGui,
+		Parent=Model[2],
 		Name='AudioSFX'
 	};
 	['old intro sound']={
@@ -1157,7 +1157,7 @@ function KryziumLib:Notify(SETTINGS)
 	local Buttons=Contexts['NotificationButtons'];
 	local NoButtons=Contexts['NotificationNoButtons'];
 
-	local PlayerGui=Model[4].LocalPlayer.PlayerGui;
+	local PlayerGui=Model[2];
 
 	InstanceContexts.ScreenGui2.Parent=PlayerGui;
 	NotificMain.Parent=InstanceContexts.ScreenGui2;
@@ -1342,7 +1342,7 @@ function KryziumLib:MakeWindow(SETTINGS)-- KryziumLib:MakeWindow({Image,Name...}
 	local num=0
 	if typeof(SETTINGS)=='table'then-- This needs a table. If you put, for example: Darkz:MakeWindow('make this window'), or something else, it wont work.
 		InstanceContexts.Main.Parent=InstanceContexts.ScreenGui;
-		InstanceContexts.ScreenGui.Parent=Model[4].LocalPlayer.PlayerGui;
+		InstanceContexts.ScreenGui.Parent=Model[2];
 		DragTitllll()
 		DragToggle()
 		if SETTINGS.Image and SETTINGS.Image=='Default' then
@@ -1762,7 +1762,7 @@ function Animate(Time)
 end
 
 function KryziumLib:init(SETTINGS)
-	InstanceContexts['InstancesInNil'].Parent=Model[4].LocalPlayer.PlayerGui
+	InstanceContexts['InstancesInNil'].Parent=Model[2];
 	for Name,Properties in next,PropertyInstances do
 		local Object=InstanceContexts[Name];
 		if Object then
